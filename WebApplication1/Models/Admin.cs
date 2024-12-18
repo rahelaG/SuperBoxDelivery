@@ -1,9 +1,8 @@
 ﻿namespace WebApplication1.Models;
 
-public class Admin:User
+public class Admin : User
 {
     public bool IsApproved { get; set; }
-    
     public Admin(string userName, string password, string mail, bool isApproved = false)
         : base(userName, password, mail)
     {
@@ -12,6 +11,6 @@ public class Admin:User
 
     public override string ToString()
     {
-        return base.ToString()+ $"\nIsApproved: {IsApproved}";
+        return base.ToString() + $"\nIsApproved: {IsApproved}";
     }
 }
