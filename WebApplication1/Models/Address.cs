@@ -1,13 +1,13 @@
 ﻿namespace WebApplication1.Models;
 
-public class Adress
+public class Address
 {
     protected string StreetName { get; set; }
     protected int StreetNumber { get; set; }
     protected string City { get; set; }
     protected int ZipCode { get; set; }
 
-    public Adress(string streetName, int streetNumber, string city, int zipCode)
+    public Address(string streetName, int streetNumber, string city, int zipCode)
     {
         StreetName = streetName;
         StreetNumber = streetNumber;
