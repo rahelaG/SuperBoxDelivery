@@ -32,7 +32,12 @@ namespace WebApplication1.Controllers
                 ModelState.AddModelError("Password", "Password is required.");
                 return View();
             }
-
+            var existingUser = _context.Users.FirstOrDefault(u => u.UserName == username);
+            if (existingUser != null)
+            {
+                ModelState.AddModelError("UserName", "Username is already taken.");
+                return View();
+            }
             var user = new User { UserName = username, Email = email };
             user.SetPassword(password);
 
