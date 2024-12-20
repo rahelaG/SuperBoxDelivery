@@ -5,7 +5,11 @@ using Microsoft.AspNetCore.Identity;
 namespace WebApplication1.Models
 {
     public class User
-    {
+    { 
+        // This attribute tells EF Core to use this property as the primary key
+        [Key]
+        public int Id { get; set; }
+        
         [Required(ErrorMessage = "Username is required")]
         public string UserName { get; set; }
 

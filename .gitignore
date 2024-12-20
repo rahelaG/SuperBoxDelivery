@@ -3,3 +3,10 @@ obj/
 /packages/
 riderModule.iml
 /_ReSharper.Caches/
+# Ignore Rider configuration files
+.idea/
+
+# Ignore SQLite database files
+WebApplication1/app.db
+WebApplication1/app.db-shm
+WebApplication1/app.db-wal
