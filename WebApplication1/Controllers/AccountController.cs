@@ -17,7 +17,19 @@ namespace WebApplication1.Controllers
         {
             return View();
         }
+        [HttpPost]
+        public IActionResult LogIn(string username, string password)
+        {
+            var user = _context.Users.FirstOrDefault(u => u.UserName == username);
 
+            if (user != null && user.VerifyPassword(password))
+            {
+                TempData["SuccessMessage"] = "You have successfully logged in!";
+                return RedirectToAction("UserHomePage", "Account");
+            }
+            ModelState.AddModelError("", "Invalid username or password.");
+            return View();
+        }
         [HttpGet]
         public IActionResult SignUp()
         {
@@ -44,6 +56,11 @@ namespace WebApplication1.Controllers
             _context.Users.Add(user);
             _context.SaveChanges();
             return RedirectToAction("Index");
+        }
+
+        public IActionResult UserHomePage()
+        {
+            return View();
         }
     }
 }
