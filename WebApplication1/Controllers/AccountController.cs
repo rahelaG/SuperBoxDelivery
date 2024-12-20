@@ -1,32 +1,44 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using WebApplication1.Models;
 
-namespace WebApplication1.Controllers;
-public class AccountController : Controller
+namespace WebApplication1.Controllers
 {
-    private static List<User> _users = new List<User>();
-    public IActionResult LogIn()
+    public class AccountController : Controller
     {
-        return View();
-    }
-    [HttpGet]
-    public IActionResult SignUp()
-    {
-        return View();
-    }
-    [HttpPost]
-    public IActionResult SignUp(string username, string password, string email)
-    {
-        if (string.IsNullOrEmpty(password))
+        private readonly ApplicationDbContext _context;
+        private static List<User> _users = new List<User>();
+
+        public AccountController(ApplicationDbContext context)
         {
-            ModelState.AddModelError("Password", "Password is required.");
+            _context = context;
+        }
+
+        public IActionResult LogIn()
+        {
             return View();
         }
 
-        var user = new User { UserName = username, Email = email };
-        user.SetPassword(password);
+        [HttpGet]
+        public IActionResult SignUp()
+        {
+            return View();
+        }
 
-        // Code to save the user
-        return RedirectToAction("Index");
+        [HttpPost]
+        public IActionResult SignUp(string username, string password, string email)
+        {
+            if (string.IsNullOrEmpty(password))
+            {
+                ModelState.AddModelError("Password", "Password is required.");
+                return View();
+            }
+
+            var user = new User { UserName = username, Email = email };
+            user.SetPassword(password);
+
+            _context.Users.Add(user);
+            _context.SaveChanges();
+            return RedirectToAction("Index");
+        }
     }
 }
