@@ -18,7 +18,6 @@ namespace WebApplication1.Models
         [Required(ErrorMessage = "Email is required")]
         [EmailAddress(ErrorMessage = "Invalid email address")]
         public string Email { get; set; }
-        
         public bool IsAdmin { get; set; }
 
         public User() { }
