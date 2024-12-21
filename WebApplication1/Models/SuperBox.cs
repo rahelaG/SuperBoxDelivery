@@ -1,17 +1,18 @@
 ﻿namespace WebApplication1.Models;
 
 public class SuperBox
-{
-    protected string IdSuperBox { get; set; }
-    protected Address AddressSuperBox { get; set; }
-    protected int Capacity { get; set; }
-    protected List<Order> OrderList;
+{   
+    public string Id { get; set; }
+    public int AddressId { get; set; } 
+    public int Capacity { get; set; }
+    public List<Order> OrderList;
 
-    public SuperBox(string idSuperBox, Address addressSuperBox, int capacity)
+    public SuperBox() { }
+    public SuperBox(string idSuperBox, int capacity, int addressId)
     {
-        IdSuperBox = idSuperBox;
-        AddressSuperBox = addressSuperBox;
+        Id = idSuperBox;
         Capacity = capacity;
+        AddressId = addressId;
         OrderList = new List<Order>();
     }
 }

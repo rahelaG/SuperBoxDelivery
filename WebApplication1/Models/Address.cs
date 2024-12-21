@@ -2,10 +2,11 @@
 
 public class Address
 {
-    protected string StreetName { get; set; }
-    protected int StreetNumber { get; set; }
-    protected string City { get; set; }
-    protected int ZipCode { get; set; }
+    public int Id { get; set; }
+    public string StreetName { get; private set; }
+    public int StreetNumber { get; private set; }
+    public string City { get; private set; }
+    public int ZipCode { get; private set; }
 
     public Address(string streetName, int streetNumber, string city, int zipCode)
     {
