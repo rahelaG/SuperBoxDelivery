@@ -1,7 +1,18 @@
-@model WebApplication1.Models.User
 @{
-    ViewData["Title"] = "Use rHome Page";
+    ViewData["Title"] = "User Home Page";
 }
-<div class="text-center">
-    <h1 class="display-4">Welcome! User dashboard</h1>
+
+@if (User.Identity.IsAuthenticated)
+{
+    <p>Welcome back, @User.Identity.Name!</p>
+}
+else
+{
+    <p>Please <a asp-controller="Account" asp-action="LogIn">log in</a>.</p>
+}
+
+<div>
+    <form asp-controller="Account" asp-action="Logout" method="post">
+        <button type="submit" class="btn btn-danger">Logout</button>
+    </form>
 </div>
