@@ -1,0 +1,25 @@
+﻿@{
+    ViewData["Title"] = "Admin Home Page";
+}
+
+<h1>Admin Dashboard</h1>
+
+<form method="post" action="/Admin/AddAdmin">
+    <label for="usernameOrEmail">Enter username or email to promote to admin:</label>
+    <input type="text" id="usernameOrEmail" name="usernameOrEmail" required />
+    <button type="submit">Promote to Admin</button>
+</form>
+
+@if (TempData["Message"] != null)
+{
+    <div class="alert alert-success">
+        @TempData["Message"]
+    </div>
+}
+
+@if (TempData["ErrorMessage"] != null)
+{
+    <div class="alert alert-danger">
+        @TempData["ErrorMessage"]
+    </div>
+}
