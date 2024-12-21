@@ -32,7 +32,9 @@ namespace WebApplication1.Controllers
                 var claims = new List<Claim>
                 {
                     new Claim(ClaimTypes.Name, user.UserName),
-                    new Claim(ClaimTypes.Email, user.Email)
+                    new Claim(ClaimTypes.Email, user.Email),
+                    new Claim(ClaimTypes.Role, user.IsAdmin ? "Admin" : "User")
+
                 };
 
                 var claimsIdentity = new ClaimsIdentity(claims, CookieAuthenticationDefaults.AuthenticationScheme);
@@ -44,6 +46,10 @@ namespace WebApplication1.Controllers
 
                 await HttpContext.SignInAsync(CookieAuthenticationDefaults.AuthenticationScheme, new ClaimsPrincipal(claimsIdentity), authProperties);
 
+                if (user.IsAdmin)
+                {
+                    return RedirectToAction("AdminHomePage", "Account");
+                }
                 return RedirectToAction("UserHomePage", "Account");
             }
 
@@ -93,6 +99,12 @@ namespace WebApplication1.Controllers
         {
             return View();
         }
+        [Authorize(Roles = "Admin")]
+        public IActionResult AdminHomePage()
+        {
+            return View();
+        }
+
 
         [HttpPost]
         public async Task<IActionResult> Logout()
