@@ -1,47 +1,72 @@
-﻿using Microsoft.AspNetCore.Authentication.Cookies;
-using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Mvc;
 using WebApplication1.Models;
-using Microsoft.EntityFrameworkCore;
+using System.Linq;
 
 namespace WebApplication1.Controllers
 {
     public class SuperBoxController : Controller
     {
         private readonly ApplicationDbContext _context;
-
-        // Constructorul controller-ului pentru a injecța contextul bazei de date
         public SuperBoxController(ApplicationDbContext context)
         {
             _context = context;
         }
-
-        // GET: SuperBox/Create
         public IActionResult Create()
         {
-            return View("~/Views/Admin/CreateSuperBox.cshtml");  // Folosește subdirectorul Admin
+            return View("~/Views/Admin/CreateSuperBox.cshtml");
         }
-
-        // POST: SuperBox/Create
+        
         [HttpPost]
         [ValidateAntiForgeryToken]
         public IActionResult Create(SuperBox superBox)
         {
-            if (ModelState.IsValid)
+            // Verificăm dacă modelul este valid
+            if (!ModelState.IsValid)
             {
-                // Adăugăm obiectul SuperBox în baza de date
-                _context.Add(superBox);
-                _context.SaveChanges();  // Salvăm schimbările în baza de date
+                // Logare sau afișare erori de validare
+                foreach (var error in ModelState.Values.SelectMany(v => v.Errors))
+                {
+                    Console.WriteLine(error.ErrorMessage);  // Afișează eroarea în consolă (pentru debugging)
+                }
 
-                // Setăm un mesaj de succes în TempData pentru a fi vizibil pe pagina curentă
-                TempData["SuccessMessage"] = "SuperBox-ul a fost adăugat cu succes!";
+                TempData["ErrorMessage"] = "Eroare la validarea formularului. Te rugăm să corectezi câmpurile.";
+                return View("~/Views/Admin/CreateSuperBox.cshtml", superBox);
+            }
+            
+            var existingSuperBox = _context.SuperBoxes
+                .FirstOrDefault(sb => sb.StreetName == superBox.StreetName 
+                                      && sb.StreetNumber == superBox.StreetNumber 
+                                      && sb.ZipCode == superBox.ZipCode
+                                      && sb.City == superBox.City);
 
-                // Rămânem pe aceeași pagină după trimiterea formularului
-                return View("~/Views/Admin/CreateSuperBox.cshtml");
+            if (existingSuperBox != null)
+            {
+                ModelState.AddModelError("Address", "A SuperBox with this address already exists.");
+                return View("~/Views/Admin/CreateSuperBox.cshtml", superBox);
             }
 
-            // Dacă modelul nu este valid, returnează formularul cu erori
-            return View("~/Views/Admin/CreateSuperBox.cshtml", superBox);
+            try
+            {
+                superBox.Id = Guid.NewGuid().ToString();
+                
+                _context.SuperBoxes.Add(superBox);
+                _context.SaveChanges();
+                
+                TempData["SuccessMessage"] = "SuperBox-ul a fost creat cu succes!";
+                return RedirectToAction("ViewSuperBox");
+            }
+            catch (Exception ex)
+            {
+                TempData["ErrorMessage"] = "A apărut o eroare la salvare: " + ex.Message;
+                return View("~/Views/Admin/CreateSuperBox.cshtml", superBox);
+            }
+        }
+
+        
+        public IActionResult ViewSuperBox()
+        {
+            var superBoxes = _context.SuperBoxes.ToList();
+            return View("~/Views/Admin/ViewSuperBox.cshtml", superBoxes);
         }
     }
 }

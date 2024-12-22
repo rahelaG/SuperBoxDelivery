@@ -1,18 +1,36 @@
 ﻿namespace WebApplication1.Models;
-
+using System.ComponentModel.DataAnnotations;
 public class SuperBox
-{   
+{
     public string Id { get; set; }
-    public int AddressId { get; set; } 
-    public int Capacity { get; set; }
-    public List<Order> OrderList;
 
-    public SuperBox() { }
-    public SuperBox(string idSuperBox, int capacity, int addressId)
+    [Required(ErrorMessage = "Capacity is required.")]
+    public int Capacity { get; set; }
+
+    [Required(ErrorMessage = "Street Name is required.")]
+    public string StreetName { get; set; }
+
+    [Required(ErrorMessage = "Street Number is required.")]
+    public int StreetNumber { get; set; }
+
+    [Required(ErrorMessage = "City is required.")]
+    public string City { get; set; }
+
+    [Required(ErrorMessage = "Zip Code is required.")]
+    public int ZipCode { get; set; }
+
+    public SuperBox()
     {
-        Id = idSuperBox;
+        Id = Guid.NewGuid().ToString();
+    }
+    
+    public SuperBox(int capacity, string streetName, int streetNumber, string city, int zipCode)
+    {
+        Id = Guid.NewGuid().ToString();
         Capacity = capacity;
-        AddressId = addressId;
-        OrderList = new List<Order>();
+        StreetName = streetName;
+        StreetNumber = streetNumber;
+        City = city;
+        ZipCode = zipCode;
     }
 }
