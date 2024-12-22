@@ -16,7 +16,6 @@ namespace WebApplication1.Models
                 .HasKey(u => u.Id);
             modelBuilder.Entity<SuperBox>()
                 .HasKey(sb => sb.Id);
-            
             modelBuilder.Entity<SuperBox>()
                 .Property(sb => sb.StreetName)
                 .IsRequired();
@@ -24,7 +23,6 @@ namespace WebApplication1.Models
             modelBuilder.Entity<SuperBox>()
                 .Property(sb => sb.StreetNumber)
                 .IsRequired();
-            
         }
     }
 }
