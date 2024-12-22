@@ -17,7 +17,7 @@ namespace WebApplication1.Migrations
             modelBuilder.HasAnnotation("ProductVersion", "9.0.0");
 
             modelBuilder.Entity("WebApplication1.Models.SuperBox", b =>
-                {
+            {
                     b.Property<string>("Id")
                         .HasColumnType("TEXT");
 

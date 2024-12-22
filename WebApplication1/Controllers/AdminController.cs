@@ -26,7 +26,7 @@ namespace WebApplication1.Controllers
             if (user != null)
             {
                 user.IsAdmin = true;
-                _context.SaveChanges(); 
+                _context.SaveChanges();
                 TempData["Message"] = "User promoted to admin!";
                 return RedirectToAction("AdminHomePage", "Account");
                 // Înapoi pe pagina de admin

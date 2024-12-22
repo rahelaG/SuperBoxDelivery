@@ -23,7 +23,6 @@ public class SuperBox
     {
         Id = Guid.NewGuid().ToString();
     }
-    
     public SuperBox(int capacity, string streetName, int streetNumber, string city, int zipCode)
     {
         Id = Guid.NewGuid().ToString();

@@ -15,7 +15,6 @@ namespace WebApplication1.Controllers
         {
             return View("~/Views/Admin/CreateSuperBox.cshtml");
         }
-        
         [HttpPost]
         [ValidateAntiForgeryToken]
         public IActionResult Create(SuperBox superBox)
@@ -32,12 +31,11 @@ namespace WebApplication1.Controllers
                 TempData["ErrorMessage"] = "Eroare la validarea formularului. Te rugăm să corectezi câmpurile.";
                 return View("~/Views/Admin/CreateSuperBox.cshtml", superBox);
             }
-            
             var existingSuperBox = _context.SuperBoxes
                 .FirstOrDefault(sb => sb.StreetName == superBox.StreetName 
-                                      && sb.StreetNumber == superBox.StreetNumber 
-                                      && sb.ZipCode == superBox.ZipCode
-                                      && sb.City == superBox.City);
+                                                                            && sb.StreetNumber == superBox.StreetNumber
+                                                                            && sb.ZipCode == superBox.ZipCode
+                                                                            && sb.City == superBox.City);
 
             if (existingSuperBox != null)
             {
