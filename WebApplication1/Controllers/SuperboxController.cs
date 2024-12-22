@@ -57,8 +57,6 @@ namespace WebApplication1.Controllers
                 return View("~/Views/Admin/CreateSuperBox.cshtml", superBox);
             }
         }
-
-        
         public IActionResult ViewSuperBox()
         {
             var superBoxes = _context.SuperBoxes.ToList();
