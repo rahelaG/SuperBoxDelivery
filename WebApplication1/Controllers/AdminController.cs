@@ -29,13 +29,11 @@ namespace WebApplication1.Controllers
                 _context.SaveChanges();
                 TempData["Message"] = "User promoted to admin!";
                 return RedirectToAction("AdminHomePage", "Account");
-                // Înapoi pe pagina de admin
             }
             else
             {
                 TempData["ErrorMessage"] = "User not found.";
                 return RedirectToAction("AdminHomePage", "Account");
-
             }
         }
         [Authorize(Roles = "Admin")]
