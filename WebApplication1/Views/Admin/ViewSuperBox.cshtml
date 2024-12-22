@@ -1,0 +1,41 @@
+﻿@model IEnumerable<WebApplication1.Models.SuperBox>
+
+@{
+    ViewData["Title"] = "SuperBox List";
+}
+
+<h1>SuperBox List</h1>
+
+<table class="table">
+    <thead>
+    <tr>
+        <th>SuperBox ID</th>
+        <th>Address</th>
+        <th>Capacity</th>
+    </tr>
+    </thead>
+    <tbody>
+    @if (Model != null && Model.Any())
+    {
+        foreach (var superBox in Model)
+        {
+            <tr>
+                <td>@superBox.Id</td>
+                <td>
+                    @* Afisează câmpurile de adresă direct de pe SuperBox *@
+                    @($"{superBox.StreetName}, {superBox.StreetNumber}, {superBox.City}, {superBox.ZipCode}")
+                </td>
+                <td>@superBox.Capacity</td>
+            </tr>
+        }
+    }
+    else
+    {
+        <tr>
+            <td colspan="3">No SuperBox data available.</td>
+        </tr>
+    }
+    </tbody>
+</table>
+
+<a href="@Url.Action("Create", "SuperBox")" class="btn btn-primary mt-3">Create New SuperBox</a>

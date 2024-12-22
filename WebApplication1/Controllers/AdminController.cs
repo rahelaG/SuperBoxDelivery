@@ -26,16 +26,14 @@ namespace WebApplication1.Controllers
             if (user != null)
             {
                 user.IsAdmin = true;
-                _context.SaveChanges(); // Salvează modificările în baza de date
+                _context.SaveChanges();
                 TempData["Message"] = "User promoted to admin!";
-                return RedirectToAction("AdminHomePage", "Account"); // Redirecționează la acțiunea AdminHomePage din AccountController
-                // Înapoi pe pagina de admin
+                return RedirectToAction("AdminHomePage", "Account");
             }
             else
             {
                 TempData["ErrorMessage"] = "User not found.";
-                return RedirectToAction("AdminHomePage", "Account"); // Redirecționează la acțiunea AdminHomePage din AccountController
-
+                return RedirectToAction("AdminHomePage", "Account");
             }
         }
         [Authorize(Roles = "Admin")]
