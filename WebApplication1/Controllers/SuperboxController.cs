@@ -32,10 +32,10 @@ namespace WebApplication1.Controllers
                 return View("~/Views/Admin/CreateSuperBox.cshtml", superBox);
             }
             var existingSuperBox = _context.SuperBoxes
-                .FirstOrDefault(sb => sb.StreetName == superBox.StreetName 
-                                                                            && sb.StreetNumber == superBox.StreetNumber
-                                                                            && sb.ZipCode == superBox.ZipCode
-                                                                            && sb.City == superBox.City);
+                .FirstOrDefault(sb => sb.StreetName == superBox.StreetName
+                                      && sb.StreetNumber == superBox.StreetNumber
+                                      && sb.ZipCode == superBox.ZipCode
+                                      && sb.City == superBox.City);
 
             if (existingSuperBox != null)
             {
@@ -46,10 +46,8 @@ namespace WebApplication1.Controllers
             try
             {
                 superBox.Id = Guid.NewGuid().ToString();
-                
                 _context.SuperBoxes.Add(superBox);
                 _context.SaveChanges();
-                
                 TempData["SuccessMessage"] = "SuperBox-ul a fost creat cu succes!";
                 return RedirectToAction("ViewSuperBox");
             }

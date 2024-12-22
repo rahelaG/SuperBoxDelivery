@@ -8,7 +8,6 @@ namespace WebApplication1.Models
 
         public DbSet<User> Users { get; set; }
         public DbSet<SuperBox> SuperBoxes { get; set; }
-        
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
