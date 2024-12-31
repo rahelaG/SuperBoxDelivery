@@ -34,6 +34,8 @@
 
 <button type="button" class="btn-secondary" onclick="window.location='@Url.Action("ViewAllOrders", "Account")'">View All Orders</button>
 <p></p><p></p><p></p>
+<a href="@Url.Action("ChooseSuperBox", "SuperBox")" class="btn btn-info">Inspect a SuperBox</a>
+<p></p><p></p><p></p>
 <div>
     <form asp-controller="Account" asp-action="Logout" method="post">
         <button type="submit" class="btn btn-danger">Logout</button>

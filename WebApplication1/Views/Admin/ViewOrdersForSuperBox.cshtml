@@ -1,0 +1,34 @@
+﻿@model SuperBoxOrdersViewModel
+
+<h2>Orders for SuperBox: @Model.SuperBox.DisplayAddress</h2>
+
+<h3>Comenzi în acest SuperBox:</h3>
+
+@if (Model.Orders != null && Model.Orders.Any())
+{
+    <table class="table">
+        <thead>
+        <tr>
+            <th>Order ID</th>
+            <th>User</th>
+            <th>Status</th>
+            <th>Relevant Info</th>
+        </tr>
+        </thead>
+        <tbody>
+        @foreach (var order in Model.Orders)
+        {
+            <tr>
+                <td>@order.OrderId</td>
+                <td>@order.User?.UserName</td>
+                <td>@order.Status</td>
+                <td>@order.RelevantInfo</td>
+            </tr>
+        }
+        </tbody>
+    </table>
+}
+else
+{
+    <p>No orders found for this SuperBox.</p>
+}

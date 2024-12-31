@@ -1,0 +1,14 @@
+﻿<h2>Select a SuperBox to view orders</h2>
+
+<form action="@Url.Action("ViewOrdersForSuperBox", "SuperBox")" method="get">
+    <div class="form-group">
+        <label for="SuperBoxId">Choose a SuperBox:</label>
+        <select class="form-control" id="SuperBoxId" name="superBoxId" onchange="this.form.submit()">
+            <option value="">-- Select SuperBox --</option>
+            @foreach (var superBox in Model)
+            {
+            <option value="@superBox.Id">@superBox.DisplayAddress</option>
+            }
+        </select>
+    </div>
+</form>
