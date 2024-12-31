@@ -67,5 +67,33 @@ namespace WebApplication1.Controllers
             var superBoxes = _context.SuperBoxes.ToList();
             return View("~/Views/Admin/ViewSuperBox.cshtml", superBoxes);
         }
+        public IActionResult ChooseSuperBox()
+        {
+            var superBoxes = _context.SuperBoxes.ToList();
+            return View("~/Views/Admin/ChooseSuperBox.cshtml",
+                superBoxes);
+        }
+        public IActionResult ViewOrdersForSuperBox(string superBoxId)
+        {
+            var superBox = _context.SuperBoxes
+                .FirstOrDefault(s => s.Id == superBoxId);
+
+            if (superBox == null)
+            {
+                return NotFound();
+            }
+            var orders = _context.Orders
+                .Where(o => o.SuperBoxId == superBoxId)
+                .ToList();
+            var model = new SuperBoxOrdersViewModel
+            {
+                SuperBox = superBox,
+                Orders = orders
+            };
+
+            return View("~/Views/Admin/ViewOrdersForSuperBox.cshtml", model);
+        }
+
+
     }
 }
