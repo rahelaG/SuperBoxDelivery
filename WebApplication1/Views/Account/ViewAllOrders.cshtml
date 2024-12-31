@@ -22,6 +22,20 @@
             <td>@(order.IsUrgent ? "Yes" : "No")</td>
             <td>@order.Status</td>
             <td>@order.RelevantInfo</td>
+            <td>
+                @if (order.Status == WebApplication1.Models.OrderStatus.InLocker)
+                {
+                <!-- Buton pentru a modifica statusul comenzii la "Delivered" -->
+                <form method="post" action="@Url.Action("ChangeOrderStatus", "Admin")">
+                    <input type="hidden" name="orderId" value="@order.OrderId" />
+                    <button type="submit" class="btn btn-success">Deliver</button>
+                </form>
+                }
+                else
+                {
+                <span class="text-success">Delivered</span>
+                }
+            </td>
         </tr>
     }
     </tbody>
