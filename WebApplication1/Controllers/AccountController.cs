@@ -200,5 +200,10 @@ namespace WebApplication1.Controllers
             await HttpContext.SignOutAsync(CookieAuthenticationDefaults.AuthenticationScheme);
             return RedirectToAction("LogIn", "Account");
         }
+        public IActionResult ViewAllOrders()
+        {
+            var orders = _context.Orders.ToList(); // Preluăm comenzile din baza de date
+            return View("ViewAllOrders", orders); // Indicăm explicit view-ul din folderul Account
+        }
     }
 }
