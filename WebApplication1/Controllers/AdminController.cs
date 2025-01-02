@@ -47,5 +47,21 @@ namespace WebApplication1.Controllers
             await HttpContext.SignOutAsync(CookieAuthenticationDefaults.AuthenticationScheme);
             return RedirectToAction("LogIn", "Account");
         }
+        [HttpPost]
+        public IActionResult ChangeOrderStatus(int orderId)
+        {
+            var order = _context.Orders.FirstOrDefault(o => o.OrderId == orderId);
+
+            if (order == null)
+            {
+                return NotFound();
+            }
+            if (order.Status != OrderStatus.Delivered)
+            {
+                order.Status = OrderStatus.Delivered;
+                _context.SaveChanges();
+            }
+            return RedirectToAction("ViewAllOrders", "Account");
+        }
     }
 }
