@@ -29,23 +29,28 @@ namespace WebApplication1.Controllers
                 _context.SaveChanges();
                 TempData["Message"] = "User promoted to admin!";
                 return RedirectToAction("AdminHomePage", "Admin");
+
             }
             else
             {
                 TempData["ErrorMessage"] = "User not found.";
                 return RedirectToAction("AdminHomePage", "Admin");
+
             }
+
         }
         [Authorize(Roles = "Admin")]
         public IActionResult AdminHomePage()
         {
             return View();
+
         }
         [HttpPost]
         public async Task<IActionResult> Logout()
         {
             await HttpContext.SignOutAsync(CookieAuthenticationDefaults.AuthenticationScheme);
             return RedirectToAction("LogIn", "Account");
+
         }
         [HttpPost]
         public IActionResult ChangeOrderStatus(int orderId)
@@ -55,10 +60,12 @@ namespace WebApplication1.Controllers
             if (order == null)
             {
                 return NotFound();
+
             }
             if (order.Status == OrderStatus.Canceled)
             {
                 return BadRequest("The order is already canceled and cannot be delivered.");
+
             }
             if (order.Status != OrderStatus.Delivered)
             {
